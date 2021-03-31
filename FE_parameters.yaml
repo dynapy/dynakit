@@ -1,0 +1,67 @@
+parameters:
+  'delta velocity' :
+        type :  dynaParameter
+        parameter : DV
+        default : 40
+        max : 50
+        min : 39
+        distribution: Uniform
+  'Pulse Duration' :
+        type :  dynaParameter
+        parameter : DUR
+        default : 100
+        max : 120
+        min : 80
+        distribution: Uniform
+  'Angle of impact' :
+        type :  dynaParameter
+        parameter : PDOF_H
+        default : 0
+        max : 10
+        min : -10
+        distribution: Uniform
+  'Belt Pre-Tensioning Trigger time (ms)' :
+        type :  dynaParameter
+        parameter : BELTRG
+        default : 13
+        max : 25
+        min : 5
+        distribution: Uniform
+  'pretensioner force' :
+        type :  dynaParameter
+        parameter : PMAXF
+        default : 1.4
+        max : 1.7
+        min : 1.2
+        distribution: Uniform
+  'Retractor Load limiting force (curve scale N -> kN)' :
+        type :  dynaParameter
+        parameter : BFORC
+        default : 0.001
+        max : 0.0015
+        min : 0.0005
+        distribution: Uniform
+  'Airbag pressure (scale factor kPa -> GPa)' :
+        type :  dynaParameter
+        parameter : SABPR
+        default : 0.001
+        max : 0.0015
+        min : 0.0005
+        distribution: Uniform
+  'Airbag leakage' :
+        type :  dynaParameter
+        parameter : ABLEAK
+        default : 1
+        max : 1.5
+        min : 0.5
+        distribution: Uniform
+  'Airbag Inflation time delay' :
+        type :  dynaParameter
+        parameter : ABTRG
+        default : 15
+        max : 25
+        min : 8
+        distribution: Uniform
+  'gender' :
+        type : dynaInclude
+        parameter : ['50F.k','50M.k']

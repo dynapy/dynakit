@@ -1,0 +1,38 @@
+# Input settings file for FE simulations to get the user input:
+# --------------
+#   PRE-Process
+# --------------
+# # Path for the generation of folders with key files
+# Directory: 'D:/'
+
+# Name of the new folder
+Newfolder_name: 'Test_file'
+
+# Number of samples /simulation runs required
+Runs: 5
+
+# Input '.key ' file with simulation details
+key: 'run_main_upd.key'
+
+# 'config.yaml' file with parameter sampling information
+config: 'FE_parameters.yaml'
+
+# --------------
+#     RUN
+# --------------
+# LS Dyna Run settings
+# path of the executable of LSTC generally a LSTC file
+LS_Run_path: 'C:\Program Files\LSTC\LS-DYNA\R11.1\ls-dyna_smp_s_R11.1_winx64_ifort160.exe'
+NCPU: 4
+
+# --------------
+#  POST-Process
+# --------------
+# Add Meta
+# .bat file used to run Meta
+type: meta
+meta_exec : 'C:/Users/ypyas/AppData/Local/Apps/BETA_CAE_Systems/meta_post_v20.1.1/meta_post64.bat'
+# meta session parh
+ses_path : 'D:/Thesis_folder/19_03_2021/'
+# meta sesion file name
+ses_file : 'Injury_session.ses'
