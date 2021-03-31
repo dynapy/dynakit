@@ -5,7 +5,8 @@ __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 index = {"Test": "00_core.ipynb",
          "FE": "FE.ipynb"}
 
-modules = ["test.py"]
+modules = ["test.py",
+           "FE.py"]
 
 doc_url = "https://dynapy.github.io/dynakit/"
 
