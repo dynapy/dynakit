@@ -62,6 +62,7 @@ parameters:
         max : 25
         min : 8
         distribution: Uniform
-  'gender' :
-        type : dynaInclude
-        parameter : ['50F.k','50M.k']
+ # Include files as parameters
+ # 'gender' :
+ #       type : dynaInclude
+ #       parameter : ['50F.k','50M.k']
