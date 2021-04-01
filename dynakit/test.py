@@ -12,8 +12,7 @@ class Test():
         """
 
         def __init__(self,para_list):
-
-        self.para_list = para_list
+            self.para_list = para_list
 
         def value_read(self,par):
             """
