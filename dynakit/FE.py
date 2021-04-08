@@ -25,7 +25,7 @@ class FE():
     -----------
        INPUTS
     -----------
-            settings : Input file for FE simulations to get the user input
+            settigs : Input file for FE simulations to get the user input
 
     """
 
@@ -33,10 +33,10 @@ class FE():
 
         self.settings = settings
         self.folders_count=0
-        self._read_user_input()
+        self._get_user_input()
 
-    def _read_user_input(self):
-        """ reads user input rom the settings.yaml file.
+    def _get_user_input(self):
+        """ gets the user input details from the settings.yaml file.
 
         Returns
         -------
@@ -52,7 +52,7 @@ class FE():
         inp_vals=[*inp.values()]
         inp_keys=[*inp.keys()]
 
-        req=['Newfolder_name','Runs','key','config']
+        req=['simulations_dir','simulations','key','FE_parameters']
 
         for names in req:
             if names not in inp_keys:
@@ -60,25 +60,29 @@ class FE():
             if inp[names] == None:
                 raise Exception(names +" value not in settings.yaml file")
 
-        if isinstance(inp['Runs'], int) == True:
-            self.Run=inp['Runs']
+        if isinstance(inp['simulations'], int) == True:
+            self.Run=inp['simulations']
             self.int='yes'
             self.Flag=1
-        elif isinstance(inp['Runs'], str) == True:
-            self.DOE=pd.read_csv(inp['Runs'])
+        elif isinstance(inp['simulations'], str) == True:
+            self.DOE=pd.read_csv(inp['simulations'])
             self.int='no'
             self.Run=len(self.DOE)
             self.Flag=1
         else:
             print('Enter either a Integer or a .csv Input')
 
-        dir_main=None
-        if 'Directory' in inp_keys:
-            dir_main=inp['Directory']
-        file_name=inp['Newfolder_name']
+        if 'directory' in inp_keys:
+            dir_main=inp['directory']
+        else:
+            dir_main=None
+        file_name=inp['simulations_dir']
         self.key=inp['key']
-        self.para_list=inp['config']
-
+        self.basepath=inp['baseline_path']
+        self.para_list=inp['FE_parameters']
+        self.ncpu = inp['NCPU']
+        self.ls_run_exe = inp['LS_Dyna_executable']
+        self.cwd=os.getcwd()
         if dir_main == None:
             current_directory = os.getcwd()
             self.fin_dir = os.path.join(current_directory,file_name)
@@ -92,34 +96,34 @@ class FE():
         except OSError as err:
             print('Adding new samples to the existing directory')
             self.Flag=0
-        self._set_keypath()
 
         return self.fin_dir , self.Run , self.key , self.para_list
 
-    def _set_keypath(self):
-        """ changes the *INCLUDE PATH card in the key file
+#     def check_keyfile(self):
+#         """ changes the *INCLUDE PATH card in the key file
 
-        Parameters
-        ----------
-        dir_main : path of the directory the other .k files are present
-        file_name: Name of the newly created file
+#         Parameters
+#         ----------
+#         dir_main : path of the directory the other .k files are present
+#         file_name: Name of the newly created file
 
-        Returns
-        -------
-        self.newkey : a new key file with an updated file path.
+#         Returns
+#         -------
+#         self.newkey : a new key file with an updated file path.
 
-        """
-        k = KeyFile(self.key)
-        include_path = k["*INCLUDE_PATH"][0]
-        path_s=self.fin_dir
-        include_path[0] =path_s.replace('\\','/')
-        curr_path=os.getcwd()
-        os.chdir(self.fin_dir)
-        k.save("upd_key.key")
-        os.chdir(curr_path)
-        self.newkey ='upd_key.key'
-
-        return self.newkey
+#         """
+#         k = KeyFile(self.key)
+#         os.chdir(self.basepath)
+#         subprocess.call(r'{} i={} NCPU={}'.format(self.ls_run_exe,self.key,self.ncpu))
+#         try:
+#             fileObject = open("messag", "r")
+#             data = fileObject.read()
+#             if('N o r m a l    t e r m i n a t i o n' in data):
+#                 print("Ready!")
+#             elif('E r r o r   t e r m i n a t i o n' in data):
+#                 print("Error in the baseline file")
+#         except Exception as e:
+#             print(e)
 
     def Read_config(self):
         """ converts the .yaml file to a dictionary
@@ -133,6 +137,7 @@ class FE():
         z : the .yaml file in dictionary format
 
         """
+        os.chdir(self.cwd)
         with open(self.para_list,'r') as file:
             parameter_list  = yaml.load(file, Loader=yaml.FullLoader)
         dynParams = {k: v for k, v in parameter_list['parameters'].items() if parameter_list['parameters'][k]['type'] == 'dynaParameter'}
@@ -189,7 +194,7 @@ class FE():
         elif self.int=='no':
             self.col_names=self.DOE.columns
         if self.int=='yes':
-            data_add = lhs(len(self.dynaParameters.loc['parameter']), samples=self.Run)
+            data_add = lhs(len(self.dynaParameters.loc['parameter']), samples=simulations)
             self.DOE = maxmin(self.Run,len(self.dynaParameters.loc['parameter']), num_steps=None, initial_points=data_add, existing_points=old_DOE, use_reflection_edge_correction=None, dist_matrix_function=None, callback=None)
             df=pd.DataFrame(self.DOE)
             os.chdir(self.dyna_dir)
@@ -224,8 +229,9 @@ class FE():
         Data   : samples matrix in a list
 
         """
+        os.chdir(self.basepath)
+        kf=KeyFile(self.key)
         os.chdir(self.fin_dir)
-        kf=KeyFile(self.newkey)
         key_parameters=kf["*PARAMETER"][0]
         key_parameters_array=np.array(kf["*PARAMETER"][0])
 
