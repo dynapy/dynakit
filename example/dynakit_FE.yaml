@@ -10,7 +10,7 @@
 
 
 # Path to baseline input file
-baseline_path: 'dynakit/example/main'
+baseline_path: './dynakit/example/main'
 
 # LS-Dyna main input keyfile with parameters. Ensure the include files are available through *INCLUDE_PATH
 key: 'run_example_main.key'
