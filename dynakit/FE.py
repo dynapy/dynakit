@@ -33,9 +33,9 @@ class FE():
 
         self.settings = settings
         self.folders_count=0
-        self._get_user_input()
+        self._read_user_input()
 
-    def _get_user_input(self):
+    def _read_user_input(self):
         """ gets the user input details from the settings.yaml file.
 
         Returns
