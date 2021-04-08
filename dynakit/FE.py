@@ -194,7 +194,7 @@ class FE():
         elif self.int=='no':
             self.col_names=self.DOE.columns
         if self.int=='yes':
-            data_add = lhs(len(self.dynaParameters.loc['parameter']), samples=simulations)
+            data_add = lhs(len(self.dynaParameters.loc['parameter']), samples=self.Run)
             self.DOE = maxmin(self.Run,len(self.dynaParameters.loc['parameter']), num_steps=None, initial_points=data_add, existing_points=old_DOE, use_reflection_edge_correction=None, dist_matrix_function=None, callback=None)
             df=pd.DataFrame(self.DOE)
             os.chdir(self.dyna_dir)
