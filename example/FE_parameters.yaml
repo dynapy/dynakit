@@ -1,0 +1,108 @@
+parameters:
+  'delta velocity' :
+        type :  dynaParameter
+        status: off
+        parameter : DV
+        default : 60
+        max  : 65
+        min : 40
+        distribution: Uniform
+  'Pulse Duration' :
+        type :  dynaParameter
+        status: off
+        parameter : DUR
+        default : 100
+        max  : 120
+        min : 110
+        distribution: Uniform
+  'Angle of impact' :
+        type :  dynaParameter
+        status: off
+        parameter : PDOF_H
+        default : 0
+        max : 10
+        min : -10
+        distribution: Uniform
+  'Belt Pre-Tensioning Trigger time (ms)' :
+        type :  dynaParameter
+        status: on
+        parameter : BELTRG
+        default : 13
+        max : 15
+        min : 5
+        distribution: Uniform
+  'pretensioner force' :
+        type :  dynaParameter
+        status: on
+        parameter : PMAXF
+        default : 1.4
+        max : 2.5
+        min : 0.99
+        distribution: Uniform
+  'Retractor Load limiting force (curve scale N -> kN)' :
+        type :  dynaParameter
+        status: on
+        parameter : BFORC
+        default : 0.001
+        max : 0.0018
+        min : 0.00061
+        distribution: Uniform
+  'Airbag pressure (scale factor kPa -> GPa)' :
+        type :  dynaParameter
+        status: on
+        parameter : SABPR
+        default : 0.0011
+        max : 0.0017
+        min : 0.0011
+        distribution: Uniform
+  'Airbag leakage' :
+        type :  dynaParameter
+        status: on
+        parameter : ABLEAK
+        default : 1
+        max : 1.5
+        min : 0.5
+        distribution: Uniform
+  'Airbag Inflation time delay' :
+        type :  dynaParameter
+        status: on
+        parameter : ABTRG
+        default : 15
+        max : 23
+        min : 16
+        distribution: Uniform
+  'steering coulum compressive force limiting' :
+        type :  dynaParameter
+        status: on
+        parameter : SCFRC
+        default : 4.8
+        max : 0.0121
+        min : 0.0055
+        distribution: Uniform
+  'Eigen Value 1' :
+        type :  dynaParameter
+        status: off
+        parameter : EV1
+        default : 0.01
+        max : 0.015
+        min : 0.005
+        distribution: Uniform
+  'Eigen Value 2' :
+        type :  dynaParameter
+        status: off
+        parameter : EV2
+        default : 0.01
+        max : 0.015
+        min : 0.005
+        distribution: Uniform
+  'Eigen Value 3' :
+        type :  dynaParameter
+        status: off
+        parameter : EV3
+        default : 0.01
+        max : 0.015
+        min : 0.005
+        distribution: Uniform
+  'gender' :
+        type : dynaInclude
+        parameter : ['50F.k','50M.k']

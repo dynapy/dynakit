@@ -1,0 +1,54 @@
+# Input settings file for FE simulations to get the user input:
+# --------------
+# Preprocess
+# --------------
+
+# Directory to generate the simulation.
+# If this is not given, simulations_dir is generated in the current working directory
+# directory: 'D:/'
+
+
+
+# Path to baseline input file
+project_path: './example/test_project'
+basefile : 'base_000'
+
+# LS-Dyna main input keyfile with parameters. Ensure the include files are available through *INCLUDE_PATH
+key: 'run_main_0001.key'
+
+# Simutions are generated one level above 'baseline_path'
+
+# Create new sub-directory to hold the simulations
+# simulations_dir: 'test'
+
+# What are the FE parameter values and distributions?
+FE_parameters: 'FE_parameters.yaml'
+
+# What simulations do you want to do run? 
+# If a number is given, the DoE is generated for the given number
+# If you prefer to provide the DoE, input the DoE as a csv and give its name here 
+simulations: 5
+
+# simulations: DoE.csv
+
+# If you would like to add more samples to the DoE....
+
+# --------------
+# Run
+# --------------
+# LS-Dyna settings
+# path to LS-Dyna executable
+LS_Dyna_executable: 'C:\Program Files\LSTC\LS-DYNA\R11.1\ls-dyna_smp_s_R11.1_winx64_ifort160.exe'
+NCPU: 4
+
+# --------------
+# Postprocess
+# --------------
+# Add Meta
+# .bat file used to run Meta
+program_name : 'post.py'
+meta_exec : 'C:/Users/ypyas/AppData/Local/Apps/BETA_CAE_Systems/meta_post_v20.1.1/meta_post64.bat'
+# meta session parh
+ses_path : 'D:/Thesis_R/hope!/'
+# meta sesion file name
+ses_file : '7par_out.ses'

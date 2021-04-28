@@ -1,0 +1,16 @@
+diversipy==0.8
+ipython==7.20.0
+jupyter==1.0.0
+jupyterlab==3.0.7
+jupyterlab-pygments==0.1.2
+lasso-python==1.5.0.post3
+matplotlib==3.3.4
+nbclient==0.5.1
+nbdev==1.1.14
+notebook==6.2.0
+numpy==1.20.1
+pandas==1.2.1
+pyDOE==0.3.8
+PyYAML==5.4.1
+qd==0.8.9
+scipy==1.6.0

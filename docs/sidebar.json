@@ -1,0 +1,7 @@
+{
+  "dynakit": {
+    "Overview": "/",
+    "Preprocess": "core.html",
+    "FE": "FE.html"
+  }
+}
