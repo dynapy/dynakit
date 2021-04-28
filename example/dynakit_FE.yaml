@@ -10,15 +10,16 @@
 
 
 # Path to baseline input file
-baseline_path: './example/main'
+project_path: './example/test_project'
+basefile : 'base_000'
 
 # LS-Dyna main input keyfile with parameters. Ensure the include files are available through *INCLUDE_PATH
-key: 'run_example_main.key'
+key: 'run_main_0001.key'
 
 # Simutions are generated one level above 'baseline_path'
 
 # Create new sub-directory to hold the simulations
-simulations_dir: 'simulations'
+# simulations_dir: 'test'
 
 # What are the FE parameter values and distributions?
 FE_parameters: 'FE_parameters.yaml'
@@ -45,9 +46,9 @@ NCPU: 4
 # --------------
 # Add Meta
 # .bat file used to run Meta
-preprocessor: meta
+program_name : 'post.py'
 meta_exec : 'C:/Users/ypyas/AppData/Local/Apps/BETA_CAE_Systems/meta_post_v20.1.1/meta_post64.bat'
 # meta session parh
-ses_path : 'D:/Thesis_folder/19_03_2021/'
+ses_path : 'D:/Thesis_R/hope!/'
 # meta sesion file name
-ses_file : 'Injury_session.ses'
+ses_file : '7par_out.ses'
