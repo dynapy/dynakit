@@ -128,7 +128,7 @@ class FE():
         on=self.new_par.loc['parameter']
         self.on_params=on.to_list()
 
-        return self.dynaParameters, self.on_params, self.new_par
+        return self.dynaParameters
 
 
     def get_samples(self):
