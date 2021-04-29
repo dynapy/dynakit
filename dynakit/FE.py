@@ -63,7 +63,7 @@ class FE():
         inp_vals=[*inp.values()]
         inp_keys=[*inp.keys()]
 
-        req=['project_path','simulations','key','FE_parameters']
+        req=['project_path','simulations','FE_parameters']
 
         for names in req:
             if names not in inp_keys:
@@ -83,9 +83,11 @@ class FE():
         else:
             print('Enter either a Integer or a .csv Input')
 
-        self.key=inp['key']
+
         self.fin_dir=inp['project_path']
-        self.basename=inp['basefile']
+        self.basename=[name for name in os.listdir(self.fin_dir) if not (name.startswith('.'))][0]
+        self.basepath=os.path.join(self.fin_dir,self.basename)
+        self.key=[name for name in os.listdir(self.basepath) if name.endswith(".key")][0]
         self.para_list=inp['FE_parameters']
         self.ncpu = inp['NCPU']
         self.ls_run_exe = inp['LS_Dyna_executable']
@@ -95,6 +97,9 @@ class FE():
         self.dyna_dir = os.path.join(self.fin_dir,'.dynakit')
         self.basepath=os.path.join(self.fin_dir,self.basename)
         self.fol_name=self.basename.split('_')[0]
+
+        if [name for name in os.listdir(self.dyna_dir) if name.endswith(".csv")] == []:
+            os.rmdir(self.dyna_dir)
 
         try:
             os.mkdir(self.dyna_dir)
