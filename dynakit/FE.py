@@ -88,17 +88,13 @@ class FE():
         base_dir=inp['baseline_directory']
         self.base_dir=os.path.abspath(base_dir)
         self.fin_dir=os.path.dirname(self.base_dir)
-#         self.fin_dir=inp['project_path']
 
-#         self.fin_dir=os.path.join(self.cwd,self.fin_dir_n)
 
         self.basename=[name for name in os.listdir(self.fin_dir) if not (name.startswith('.'))][0]
 
         self.dyna_dir = os.path.join(self.fin_dir,'.dynakit')
         self.para_list='FE_parameters.yaml'
-        self.ncpu = inp['NCPU']
-        self.ls_run_exe = inp['LS_Dyna_executable']
-        self.outputs=inp['program_name']
+
 
         self.basepath=os.path.join(self.fin_dir,self.basename)
         self.key=[name for name in os.listdir(self.basepath) if name.endswith(".key")][0]
