@@ -63,7 +63,7 @@ class FE():
         inp_vals=[*inp.values()]
         inp_keys=[*inp.keys()]
 
-        req=['project_path','simulations','FE_parameters']
+        req=['baseline_directory','simulations']
 
         for names in req:
             if names not in inp_keys:
@@ -83,22 +83,19 @@ class FE():
         else:
             print('Enter either a Integer or a .csv Input')
 
-#         fin_check=inp['project_path']
-#         dyna_check = os.path.join(self.fin_dir,'.dynakit')
-
-#         if os.path.exists(self.dyna_dir):
-#             self.fin_dir=inp['project_path']
-#         else:
-        self.fin_dir=inp['project_path']
         self.cwd=os.getcwd()
+
+        base_dir=inp['baseline_directory']
+        self.base_dir=os.path.abspath(base_dir)
+        self.fin_dir=os.path.dirname(self.base_dir)
+#         self.fin_dir=inp['project_path']
+
 #         self.fin_dir=os.path.join(self.cwd,self.fin_dir_n)
-
-
 
         self.basename=[name for name in os.listdir(self.fin_dir) if not (name.startswith('.'))][0]
 
         self.dyna_dir = os.path.join(self.fin_dir,'.dynakit')
-        self.para_list=inp['FE_parameters']
+        self.para_list='FE_parameters.yaml'
         self.ncpu = inp['NCPU']
         self.ls_run_exe = inp['LS_Dyna_executable']
         self.outputs=inp['program_name']
@@ -135,7 +132,7 @@ class FE():
         z : the .yaml file in dictionary format
 
         """
-        os.chdir(self.cwd)
+        os.chdir(self.fin_dir)
         with open(self.para_list,'r') as file:
             parameter_list  = yaml.load(file, Loader=yaml.FullLoader)
         dynParams = {k: v for k, v in parameter_list['parameters'].items() if parameter_list['parameters'][k]['type'] == 'dynaParameter'}
