@@ -16,6 +16,7 @@ import subprocess
 import shlex
 from diversipy.hycusampling import maximin_reconstruction as maxmin
 import csv
+from pathlib import PurePath
 
 class FE():
     """
@@ -85,7 +86,7 @@ class FE():
 
         self.cwd=os.getcwd()
 
-        base_dir=inp['baseline_directory']
+        base_dir=PurePath(inp['baseline_directory'])
         self.basepath=os.path.abspath(base_dir)
         self.fin_dir=os.path.dirname(self.basepath)
 
