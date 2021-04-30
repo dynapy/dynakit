@@ -33,9 +33,9 @@ class FE():
 
         self.settings = settings
         self.folders_count=0
-        self._get_user_input()
+        self._read_user_input()
 
-    def _get_user_input(self):
+    def _read_user_input(self):
         """ gets the user input details from the settings.yaml file.
 
         Returns
@@ -67,9 +67,9 @@ class FE():
 
         for names in req:
             if names not in inp_keys:
-                raise Exception(names +" not in settings.yaml file")
+                raise Exception(names +" not in dynakit_FE.yaml file")
             if inp[names] == None:
-                raise Exception(names +" value not in settings.yaml file")
+                raise Exception(names +" value not in dynakit_FE.yaml file")
 
         if isinstance(inp['simulations'], int) == True:
             self.Run=inp['simulations']
@@ -83,23 +83,36 @@ class FE():
         else:
             print('Enter either a Integer or a .csv Input')
 
+#         fin_check=inp['project_path']
+#         dyna_check = os.path.join(self.fin_dir,'.dynakit')
 
+#         if os.path.exists(self.dyna_dir):
+#             self.fin_dir=inp['project_path']
+#         else:
         self.fin_dir=inp['project_path']
+        self.cwd=os.getcwd()
+#         self.fin_dir=os.path.join(self.cwd,self.fin_dir_n)
+
+
+
         self.basename=[name for name in os.listdir(self.fin_dir) if not (name.startswith('.'))][0]
-        self.basepath=os.path.join(self.fin_dir,self.basename)
-        self.key=[name for name in os.listdir(self.basepath) if name.endswith(".key")][0]
+
+        self.dyna_dir = os.path.join(self.fin_dir,'.dynakit')
         self.para_list=inp['FE_parameters']
         self.ncpu = inp['NCPU']
         self.ls_run_exe = inp['LS_Dyna_executable']
         self.outputs=inp['program_name']
-        self.cwd=os.getcwd()
 
-        self.dyna_dir = os.path.join(self.fin_dir,'.dynakit')
+        self.basepath=os.path.join(self.fin_dir,self.basename)
+        self.key=[name for name in os.listdir(self.basepath) if name.endswith(".key")][0]
+
+
         self.basepath=os.path.join(self.fin_dir,self.basename)
         self.fol_name=self.basename.split('_')[0]
 
-        if [name for name in os.listdir(self.dyna_dir) if name.endswith(".csv")] == []:
-            os.rmdir(self.dyna_dir)
+        if os.path.exists(self.dyna_dir):
+            if [name for name in os.listdir(self.dyna_dir) if name.endswith(".csv")] == []:
+                os.rmdir(self.dyna_dir)
 
         try:
             os.mkdir(self.dyna_dir)
@@ -110,7 +123,7 @@ class FE():
         return self.fin_dir , self.Run , self.key , self.para_list
 
 
-    def Read_config(self):
+    def read_parameters(self):
         """ converts the .yaml file to a dictionary
 
         Parameters
@@ -204,6 +217,7 @@ class FE():
         Data   : samples matrix in a list
 
         """
+        os.chdir(self.cwd)
         os.chdir(self.fin_dir)
         self.folders_count =len([name for name in os.listdir(os.getcwd()) if name.startswith(self.fol_name)])-1
         os.chdir(self.dyna_dir)
@@ -262,7 +276,7 @@ class FE():
 
         return self.DOE
 
-    def generate_key_file(self):
+    def generate_keyfile(self):
         """ Generate the new updated .key file and a FE_Parameters.yaml file containing respective sampled values
         for each parameters in new folders.
 
@@ -323,9 +337,9 @@ class FE():
         Runs all the methods of pre-process class
 
         """
-        self.Read_config()
+        self.read_parameters()
         if self.Flag==1:
             self.get_samples()
         elif self.Flag==0:
             self.add_samples()
-        self.generate_key_file()
+        self.generate_keyfile()

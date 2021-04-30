@@ -10,19 +10,11 @@
 
 
 # Path to baseline input file
-project_path: './example/test_project'
-basefile : 'base_000'
+project_path: 'D:\REpos\dynakit\example\test_project'
 
-# LS-Dyna main input keyfile with parameters. Ensure the include files are available through *INCLUDE_PATH
-key: 'run_main_0001.key'
-
-# Simutions are generated one level above 'baseline_path'
-
-# Create new sub-directory to hold the simulations
-# simulations_dir: 'test'
 
 # What are the FE parameter values and distributions?
-FE_parameters: 'FE_parameters.yaml'
+FE_parameters: 'example\FE_parameters.yaml'
 
 # What simulations do you want to do run? 
 # If a number is given, the DoE is generated for the given number
