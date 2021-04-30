@@ -86,8 +86,8 @@ class FE():
         self.cwd=os.getcwd()
 
         base_dir=inp['baseline_directory']
-        self.base_dir=os.path.abspath(base_dir)
-        self.fin_dir=os.path.dirname(self.base_dir)
+        self.basepath=os.path.abspath(base_dir)
+        self.fin_dir=os.path.dirname(self.basepath)
 
 
         self.basename=[name for name in os.listdir(self.fin_dir) if not (name.startswith('.'))][0]
@@ -96,11 +96,9 @@ class FE():
         self.para_list='FE_parameters.yaml'
 
 
-        self.basepath=os.path.join(self.fin_dir,self.basename)
         self.key=[name for name in os.listdir(self.basepath) if name.endswith(".key")][0]
 
 
-        self.basepath=os.path.join(self.fin_dir,self.basename)
         self.fol_name=self.basename.split('_')[0]
 
         if os.path.exists(self.dyna_dir):
