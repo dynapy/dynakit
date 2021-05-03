@@ -1,0 +1,48 @@
+package:
+  name: dynakit
+  version: 0.0.2
+source:
+  sha256: f1d76220d910cd8965472a1a984e8b04fab5e6eb3c72357e1310ba622da8926c
+  url: https://files.pythonhosted.org/packages/80/a8/cc2c974252b35becf16149279631a105bc43eb205e6e7c6d7cef52ae477f/dynakit-0.0.2.tar.gz
+about:
+  dev_url: https://dynapy.github.io
+  doc_url: https://dynapy.github.io
+  home: https://dynapy.github.io
+  license: Apache Software
+  license_family: APACHE
+  summary: Machine Learning Toolkit for LS-Dyna Simulations
+build:
+  noarch: python
+  number: '0'
+  script: '{{ PYTHON }} -m pip install . -vv'
+extra:
+  recipe-maintainers:
+  - dynapy
+requirements:
+  host:
+  - pip
+  - python
+  - packaging
+  - lasso-python>=1.5.0
+  - diversipy==0.8
+  - numpy==1.20.1
+  - pandas==1.2.1
+  - pyDOE==0.3.8
+  - PyYAML==5.4.1
+  - qd==0.8.9
+  - scipy==1.6.0
+  run:
+  - pip
+  - python
+  - packaging
+  - lasso-python>=1.5.0
+  - diversipy==0.8
+  - numpy==1.20.1
+  - pandas==1.2.1
+  - pyDOE==0.3.8
+  - PyYAML==5.4.1
+  - qd==0.8.9
+  - scipy==1.6.0
+test:
+  imports:
+  - dynakit
