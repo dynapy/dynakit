@@ -97,7 +97,7 @@ class FE():
         self.para_list='FE_parameters.yaml'
 
 
-        self.key=[name for name in os.listdir(self.basepath) if name.endswith(".key")][0]
+        self.key=inp['main_key']
 
 
         self.fol_name=self.basename.split('_')[0]
