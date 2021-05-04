@@ -1,9 +1,9 @@
 package:
   name: dynakit
-  version: 0.0.2
+  version: 0.0.3
 source:
-  sha256: f1d76220d910cd8965472a1a984e8b04fab5e6eb3c72357e1310ba622da8926c
-  url: https://files.pythonhosted.org/packages/80/a8/cc2c974252b35becf16149279631a105bc43eb205e6e7c6d7cef52ae477f/dynakit-0.0.2.tar.gz
+  sha256: a546be9801a2224fcb56e54ad06c184ebb2035f278c4c30e3a21278462ddda65
+  url: https://files.pythonhosted.org/packages/b2/30/f552ac37672ade70d597cb0dc1960073ed49c6fe2db41cf8d8165f5cc3b6/dynakit-0.0.3.tar.gz
 about:
   dev_url: https://dynapy.github.io
   doc_url: https://dynapy.github.io
@@ -26,7 +26,7 @@ requirements:
   - lasso-python>=1.5.0
   - diversipy==0.8
   - numpy==1.20.1
-  - pandas==1.2.1
+  - pandas==1.1.5
   - pyDOE==0.3.8
   - PyYAML==5.4.1
   - qd==0.8.9
@@ -38,7 +38,7 @@ requirements:
   - lasso-python>=1.5.0
   - diversipy==0.8
   - numpy==1.20.1
-  - pandas==1.2.1
+  - pandas==1.1.5
   - pyDOE==0.3.8
   - PyYAML==5.4.1
   - qd==0.8.9
