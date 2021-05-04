@@ -8,7 +8,7 @@ matplotlib==3.3.4
 nbclient==0.5.1
 nbdev==1.1.14
 notebook==6.2.0
-numpy==1.20.1
+numpy==1.19.5
 pandas==1.2.1
 pyDOE==0.3.8
 PyYAML==5.4.1
