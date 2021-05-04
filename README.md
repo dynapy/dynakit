@@ -6,19 +6,10 @@ Coming soon!
 
 ## Install
 
-`pip install dynakit`
+`pip install dynakit -U`
 
 ## How to use
 
-Fill me in please! Don't forget code examples:
+Under construction! (Early alpha releases)
 
-```
-1+1
-```
-
-
-
-
-    2
-
-
+code examples:
