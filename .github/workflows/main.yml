@@ -11,9 +11,6 @@ jobs:
         architecture: 'x64'
     - name: Install the library
       run: |
-        pip install pyDOE
-        pip install qd
-        pip install pandas
         pip install nbdev jupyter
         pip install -e .
     - name: Read all notebooks
