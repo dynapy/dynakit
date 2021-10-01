@@ -1,0 +1,9 @@
+data:
+  input: input.csv
+  output: output.csv
+
+ML method:
+  method: ridge
+  parameters:
+        alpha : 0.000001
+        selection: random
