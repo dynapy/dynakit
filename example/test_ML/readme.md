@@ -1,7 +1,6 @@
 # File contents
-`settings.yaml` - User input file 
+`dynakit_ML.yaml` - User input file 
 
-`try1.ipynb`- ML implimentation script
 ## Data
 `input.csv` - 10 parameters sampled Input data
 
@@ -11,5 +10,5 @@
 
 ## Machine learning Implimentation
 <p align="center">
-  <img src="https://github.com/dynapy/dynakit/blob/ml/example/ML/process_flow.png" alt="Sublime's custom image"/>
+  <img src="https://github.com/dynapy/dynakit/blob/ml/example/test_ML/process_flow.png"/>
 </p>
