@@ -1,0 +1,13 @@
+# Input settings file for FE simulations to get the user input:
+
+# Path to baseline input file
+
+baseline_directory : 'example/test_project/base_000'
+
+main_key : 'run_main_0001.key'
+
+# If a number is given, the DoE is generated for the given number
+# If you prefer to provide the DoE, input the DoE as a csv and give its name here 
+simulations: 5
+
+# simulations: DoE.csv
