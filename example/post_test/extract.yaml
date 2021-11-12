@@ -1,0 +1,40 @@
+result_filepath: 'D:\others\Thesis_R\Stoch_sim_noise_results_210531\results_noise'
+
+sampling_filepath: 'D:\others\Thesis_R\Stoch_sim_noise_results_210531\Sampling_m.csv'
+compiled_filepath: 'example/post_test/compiled.csv'
+# sampling_file: 'Sampling_m.csv'
+
+compilation_details:
+#     'thums_head' : 
+#         csv: 'head_results.csv'
+#         out : 
+#             - 'HIC15(-)'
+# #             - 'BrIC(-)'
+#             - 'MAX_Head_Acc(g)'
+
+    'thums_chest' :
+        csv: 
+            - 'risk_of_ribfracture.csv'
+        out: 
+            - 'Risk(45yrs|2ribfx)(%)'
+#         csv: 'global_chest_crit.csv'
+#         out: 
+#             - 'Dmax(mm)'
+           
+# #             - 'DcTHOR(mm)'
+
+#     'thums_pelvis_ext' :
+#         csv: 'extremity_values.csv'
+#         out: 
+#             - 'Pelvis_Acc_Rmax(g)'
+
+#     'thums_chest' : 
+#         csv: 'maxstrains.csv'
+#         out: 
+#             - [0:24]
+#     'thums_spine' :
+#         csv: 'spine_ic.csv'
+#         out: 
+#             - 'NIC(m^2/s^2)'
+#             - 'Nkm(-)'
+#             - 'Nij(-)'
