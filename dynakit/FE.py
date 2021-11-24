@@ -10,12 +10,8 @@ from scipy.stats import uniform
 import yaml
 from qd.cae.dyna import KeyFile
 import os
-import sys
 import pandas as pd
-import subprocess
-import shlex
 from diversipy.hycusampling import maximin_reconstruction as maxmin
-import csv
 from pathlib import PurePath
 
 class FE():
@@ -91,8 +87,7 @@ class FE():
         self.fin_dir=os.path.dirname(self.basepath)
 
 
-        self.basename=[name for name in os.listdir(self.fin_dir) if not (name.startswith('.'))][0]
-
+        self.basename=base_dir.name
         self.dyna_dir = os.path.join(self.fin_dir,'.dynakit')
         self.para_list='FE_parameters.yaml'
 
