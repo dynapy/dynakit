@@ -1,0 +1,231 @@
+open d3plot "cpr_d3plot"
+ac
+# LEFT
+# Rib Left1
+genselect target element
+genselect element add part 10403014/0 
+etime 77 
+xyplot 1 savefile ms_csv "L1.csv" 1 all
+deletewin 1
+clearpick
+
+# Rib Left2
+genselect element add part 10403024/0 
+etime 77 
+xyplot 1 savefile ms_csv "L2.csv" 1 all
+deletewin 1
+switch2pick
+clearpick
+
+# Rib Left 3
+genselect element add part 10403034/0 
+etime 77 
+xyplot 1 savefile ms_csv "L3.csv" 1 all
+deletewin 1
+switch2pick
+clearpick
+
+# Rib Left4
+genselect element add part 10403044/0 
+etime 77 
+xyplot 1 savefile ms_csv "L4.csv" 1 all
+deletewin 1
+switch2pick
+clearpick
+
+# Rib Left5
+genselect element add part 10403054/0 
+etime 77 
+xyplot 1 savefile ms_csv "L5.csv" 1 all
+deletewin 1
+switch2pick
+clearpick
+
+# Rib Left6
+genselect element add part 10403064/0 
+etime 77 
+xyplot 1 savefile ms_csv "L6.csv" 1 all
+deletewin 1
+switch2pick
+clearpick
+
+# Rib Left7
+genselect element add part 10403074/0 
+etime 77 
+xyplot 1 savefile ms_csv "L7.csv" 1 all
+deletewin 1
+switch2pick
+clearpick
+
+# Rib Left 8
+genselect element add part 10403084/0 
+etime 77 
+xyplot 1 savefile ms_csv "L8.csv" 1 all
+deletewin 1
+switch2pick
+clearpick
+
+# Rib Left 9
+genselect element add part 10403094/0 
+etime 77 
+xyplot 1 savefile ms_csv "L9.csv" 1 all
+deletewin 1
+switch2pick
+clearpick
+
+# Rib Left10
+genselect element add part 10403104/0 
+etime 77 
+xyplot 1 savefile ms_csv "L10.csv" 1 all
+deletewin 1
+switch2pick
+clearpick
+
+# Rib Left11
+genselect element add part 10403114/0 
+etime 77 
+xyplot 1 savefile ms_csv "L11.csv" 1 all
+deletewin 1
+switch2pick
+clearpick
+
+# Rib Left 12
+genselect element add part 10403124/0 
+etime 77 
+xyplot 1 savefile ms_csv "L12.csv" 1 all
+deletewin 1
+switch2pick
+clearpick
+
+# Right
+# Rib Right 1
+genselect target element
+genselect element add part 10453014/0 
+etime 77 
+xyplot 1 savefile ms_csv "R1.csv" 1 all
+deletewin 1
+clearpick
+
+# Rib Right 2
+genselect element add part 10453024/0 
+etime 77 
+xyplot 1 savefile ms_csv "R2.csv" 1 all
+deletewin 1
+switch2pick
+clearpick
+
+# Rib Right 3
+genselect element add part 10453034/0 
+etime 77 
+xyplot 1 savefile ms_csv "R3.csv" 1 all
+deletewin 1
+switch2pick
+clearpick
+
+# Rib Right 4
+genselect element add part 10453044/0 
+etime 77 
+xyplot 1 savefile ms_csv "R4.csv" 1 all
+deletewin 1
+switch2pick
+clearpick
+
+# Rib Right 5
+genselect element add part 10453054/0 
+etime 77 
+xyplot 1 savefile ms_csv "R5.csv" 1 all
+deletewin 1
+switch2pick
+clearpick
+
+# Rib Right 6
+genselect element add part 10453064/0 
+etime 77 
+xyplot 1 savefile ms_csv "R6.csv" 1 all
+deletewin 1
+switch2pick
+clearpick
+
+# Rib Right 7
+genselect element add part 10453074/0 
+etime 77 
+xyplot 1 savefile ms_csv "R7.csv" 1 all
+deletewin 1
+switch2pick
+clearpick
+
+# Rib Right 8
+genselect element add part 10453084/0 
+etime 77 
+xyplot 1 savefile ms_csv "R8.csv" 1 all
+deletewin 1
+switch2pick
+clearpick
+
+# Rib Right 9
+genselect element add part 10453094/0 
+etime 77 
+xyplot 1 savefile ms_csv "R9.csv" 1 all
+deletewin 1
+switch2pick
+clearpick
+
+# Rib Right 10
+genselect element add part 10453104/0 
+etime 77 
+xyplot 1 savefile ms_csv "R10.csv" 1 all
+deletewin 1
+switch2pick
+clearpick
+
+# Rib Right 11
+genselect element add part 10453114/0 
+etime 77 
+xyplot 1 savefile ms_csv "R11.csv" 1 all
+deletewin 1
+switch2pick
+clearpick
+
+# Rib Right 12
+genselect element add part 10453124/0 
+etime 77 
+xyplot 1 savefile ms_csv "R12.csv" 1 all
+deletewin 1
+switch2pick
+clearpick
+
+# HIC15 
+binaski init;
+binaski load "binout0000"
+binaski fileswitch binout0000;
+binaski loadblock /nodout
+genselect target node
+genselect label on
+clearpick
+genselect node add node 11090000/0
+binaski plot "binout0000" nodout 1 3 11090000 x_acceleration y_acceleration z_acceleration ;
+xyplot 1 filter sae  60.00 msec 0
+xyplot 1 select 1
+xyplot 1 select 2
+xyplot 1 select 3
+xyplot 1 operation resultant3 1/2/3
+xyplot 1 operation save resultantData Curve_file
+deletewin 1
+genselect label off
+newplot
+show "resultantData~1" 0
+ictime 0.001
+icgravity 9.81e-3
+xyplot 1 operation hic15 all
+xyplot 1 operation save hic15.csv Curve_file
+deletewin 1
+
+# Chest Compression
+measure select 1
+measure dist N14146200/0 N14275238/0
+measure axes set 1
+measure history dist s}
+xyplot 1 savefile ms_csv "chest_def.csv" 1 all
+deletewin 1
+
+exit
