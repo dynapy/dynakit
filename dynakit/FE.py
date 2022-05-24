@@ -273,9 +273,6 @@ class FE():
             keyfile=pd.read_table(self.pkey,index_col=None)
             os.chdir(self.fin_dir)
             os.mkdir('{}_{:03}'.format(self.fol_name,(run+self.folders_count)))
-            for filename in os.listdir(self.basepath):
-                os.chdir(self.basepath)
-                copy(filename, os.path.join(self.fin_dir,'{}_{:03}'.format(self.fol_name,(run+self.folders_count))))
             os.chdir(os.path.join(self.fin_dir,'{}_{:03}'.format(self.fol_name,(run+self.folders_count))))
 
             FE_Parameters = {}
@@ -288,6 +285,12 @@ class FE():
             keyfile.to_csv("parameters.key".format((run+self.folders_count)), index=None)
             with open('simulation_Parameters.yaml','w') as FE_file:
                 yaml.dump(FE_Parameters,FE_file,default_flow_style = False)
+
+        for numbs in range(0,self.Run):
+            for filename in os.listdir(self.basepath):
+                if not filename == self.pkey:
+                    os.chdir(self.basepath)
+                    copy(filename, os.path.join(self.fin_dir,'{}_{:03}'.format(self.fol_name,(numbs+self.folders_count))))
 
 
     def get_simulation_files(self):
