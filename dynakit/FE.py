@@ -8,7 +8,7 @@ import numpy as np
 from scipy.stats.distributions import norm
 from scipy.stats import uniform
 import yaml
-from qd.cae.dyna import KeyFile
+from shutil import *
 import os
 import pandas as pd
 from diversipy.hycusampling import maximin_reconstruction as maxmin
@@ -92,7 +92,8 @@ class FE():
         self.para_list='FE_parameters.yaml'
 
 
-        self.key=inp['main_key']
+        self.mainkey=inp['main_key']
+        self.pkey=inp['parameters']
 
 
         self.fol_name=self.basename.split('_')[0]
@@ -107,7 +108,7 @@ class FE():
             print('Adding new samples to the existing directory')
             self.Flag=0
 
-        return self.fin_dir , self.Run , self.key , self.para_list
+        return self.fin_dir , self.Run , self.pkey , self.para_list
 
 
     def read_parameters(self):
@@ -264,60 +265,33 @@ class FE():
         return self.DOE
 
     def generate_keyfile(self):
-        """ Generate the new updated .key file and a FE_Parameters.yaml file containing respective sampled values
-        for each parameters in new folders.
-
-        Parameters
-        ----------
-        self.newkey      : a new key file with an updated file path.
-        self.fin_dir     : final path of the created directory
-        self.Run         : Number of samples required
-        self.para_num    : number of parameters/variables/features
-        self.para_names  : Names of parameters/variables/features
-        self.DOE         : samples matrix in a list
-
-        Returns
-        -------
-        fldolder in the directory
-
-        """
-        os.chdir(self.basepath)
-        kf=KeyFile(self.key)
-        os.chdir(self.fin_dir)
-        key_parameters=kf["*PARAMETER"][0]
-        key_parameters_array=np.array(kf["*PARAMETER"][0])
-
-        # Creating a dictionary with key and it's values:
-        key_dict={}
-        R_index=[]
-        for i in range(0,len(key_parameters_array)):
-            if key_parameters_array[i].startswith('R'):
-                R_index.append(i)
-                f=key_parameters_array[i].split(' ')
-                key_dict[f[1]]=f[-1]
-        par_lis=[*key_dict.keys()]
         os.chdir(self.fin_dir)
         self.folders_count =len([name for name in os.listdir(os.getcwd()) if name.startswith(self.fol_name)])
 
-
         for run in range(0,self.Run):
-
-            os.mkdir('{}_{:03}'.format(self.fol_name,(run+self.folders_count)))
-            os.chdir('{}_{:03}'.format(self.fol_name,(run+self.folders_count)))
-            FE_Parameters = {}
-
-            for para in range(0,len(self.col_names)):
-
-                for i in range(0,len(R_index)):
-
-                    if par_lis[i] == self.col_names[para]:
-
-                        key_parameters[i+1,1] = self.DOE[run+self.folders_count-1,para]
-                        kf.save("run_main_{:03}.key".format((run+self.folders_count)))
-                        FE_Parameters[par_lis[i]] =  key_parameters[i+1,1]
-                    with open('simulation_Parameters.yaml','w') as FE_file:
-                        yaml.dump(FE_Parameters,FE_file,default_flow_style = False)
+            os.chdir(self.basepath)
+            keyfile=pd.read_table(self.pkey,index_col=None)
             os.chdir(self.fin_dir)
+            os.mkdir('{}_{:03}'.format(self.fol_name,(run+self.folders_count)))
+            os.chdir(os.path.join(self.fin_dir,'{}_{:03}'.format(self.fol_name,(run+self.folders_count))))
+
+            FE_Parameters = {}
+            for para in range(0,len(self.col_names)):
+                for k,v in enumerate(keyfile.values):
+                    if v[0].startswith(("R")):
+                        if v[0].strip("\n").split()[1] == self.col_names[para]:
+                            v[0]=v[0].replace(str(v[0].strip("\n").split()[2]),str(self.DOE[run+self.folders_count-1,para]))
+                            FE_Parameters[str(v[0].strip("\n").split()[1])] =  str(v[0].strip("\n").split()[2])
+            keyfile.to_csv("parameters.key".format((run+self.folders_count)), index=None)
+            with open('simulation_Parameters.yaml','w') as FE_file:
+                yaml.dump(FE_Parameters,FE_file,default_flow_style = False)
+
+        for numbs in range(0,self.Run):
+            for filename in os.listdir(self.basepath):
+                if not filename == self.pkey:
+                    os.chdir(self.basepath)
+                    copy(filename, os.path.join(self.fin_dir,'{}_{:03}'.format(self.fol_name,(numbs+self.folders_count))))
+
 
     def get_simulation_files(self):
         """
@@ -330,4 +304,3 @@ class FE():
         elif self.Flag==0:
             self.add_samples()
         self.generate_keyfile()
-

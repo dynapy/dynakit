@@ -4,7 +4,9 @@
 
 baseline_directory : 'example/test_project/base_000'
 
-main_key : 'run_main_0001.key'
+main_key : 'main.key'
+
+parameters: 'parameters.key'
 
 # If a number is given, the DoE is generated for the given number
 # If you prefer to provide the DoE, input the DoE as a csv and give its name here 
