@@ -277,12 +277,21 @@ class FE():
 
             FE_Parameters = {}
             for para in range(0,len(self.col_names)):
+                parameter_val=str(self.DOE[run+self.folders_count-1,para])
                 for k,v in enumerate(keyfile.values):
                     if v[0].startswith(("R")):
                         if v[0].strip("\n").split()[1] == self.col_names[para]:
-                            v[0]=v[0].replace(str(v[0].strip("\n").split()[2]),str(self.DOE[run+self.folders_count-1,para]))
-                            FE_Parameters[str(v[0].strip("\n").split()[1])] =  str(v[0].strip("\n").split()[2])
-            keyfile.to_csv("parameters.key".format((run+self.folders_count)), index=None)
+                            line=v[0].split(' ')
+                            line= list(filter(None, line))
+                            if len(parameter_val)>6:
+                                line[2]="{:.2e}".format(float(parameter_val))
+                            line[0]=line[0].ljust(1)
+                            line[1]=line[1].ljust(9)
+                            line[2]=line[2].ljust(8)
+                            v[0]=v[0].replace(v[0],(line[0]+line[1]+line[2]))
+                            FE_Parameters[line[1]] =  line[2]
+            keyfile.to_csv("parameters.key", index=None)
+
             with open('simulation_Parameters.yaml','w') as FE_file:
                 yaml.dump(FE_Parameters,FE_file,default_flow_style = False)
 
